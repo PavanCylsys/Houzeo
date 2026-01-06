@@ -28,20 +28,29 @@
           </button>
         </div>
         
-        <div class="flex items-center justify-between gap-2 mt-3">
+        <div class="flex items-center justify-between gap-2 mt-3 z-999">
           <!-- Dropdowns (only first two for mobile) -->
-          <div v-for="filter in filters.slice(0, 2)" :key="filter.label" class="relative flex-1 z-999">
+           <div class="flex gap-2">
+            <div v-for="filter in filters.slice(0, 2)" :key="filter.label" class=" z-999">
              <button @click.stop="toggleDropdown(filter.label)" class="w-full flex items-center justify-between  py-2 rounded-lg border transition-all duration-300" 
                     :class="isActive(filter) ? 'bg-blue-50 border-blue-500 text-blue-600' : 'bg-white border-gray-400 text-gray-800'">
                 {{ filter.value }}
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
              </button>
-             <!-- Dropdown content here as before -->
+             <div v-if="openDropdown === filter.label" class="absolute mt-2  bg-white border rounded-lg shadow-md z-20">
+                <div v-for="option in filter.options" :key="option" @click="selectOption(filter, option)" class="px-4 py-2 cursor-pointer transition" :class="option === filter.value ? 'bg-blue-100 text-blue-700 font-medium' : 'hover:bg-gray-100'">
+                  {{ option }}
+                </div>
+            </div>
           </div>
-
+           </div>
+         <div>
           <button class="flex-1 bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 whitespace-nowrap">
             Save Search
           </button>
+         </div>
+
+        
         </div>
       </div>
 
@@ -57,8 +66,8 @@
         <button class="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700" @click="onSearch">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
-        <div class="flex items-center gap-2">
-            <div v-for="filter in filters.slice(0, 2)" :key="filter.label" class="relative">
+        <div class="flex items-center gap-2 z-999">
+            <div v-for="filter in filters" :key="filter.label" class="relative">
               <button @click.stop="toggleDropdown(filter.label)" class="w-full flex items-center justify-between px-4 py-2 rounded-lg border transition-all duration-300" 
                       :class="isActive(filter) ? 'bg-blue-50 border-blue-500 text-blue-600' : 'bg-white border-gray-400 text-gray-800'">
                   {{ filter.value }}

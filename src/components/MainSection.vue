@@ -4,7 +4,7 @@
       <MapSection />
     </div>
 
-    <div class="w-full md:w-1/2 p-4 overflow-y-auto">
+    <div class="w-full md:w-1/2 p-4 overflow-y-auto h-full">
       <ListingsSection />
     </div>
   </div>

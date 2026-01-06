@@ -1,9 +1,11 @@
 <template>
   <div
-    class="bg-white border rounded-lg shadow-md overflow-hidden group
-           w-full max-w-sm mx-auto transition-all duration-300
-           hover:shadow-xl hover:-translate-y-1"
-  >
+  class="bg-white border rounded-lg shadow-md group
+  w-full mx-auto
+  overflow-visible sm:overflow-hidden
+  max-w-full sm:max-w-sm transition-all duration-300
+         sm:hover:shadow-xl sm:hover:-translate-y-1"
+>
 
     <div class="relative overflow-hidden">
 
@@ -14,28 +16,30 @@
       />
 
       <button
-        v-if="images.length > 1"
-        @click="prevImage"
-        class="absolute left-2 top-1/2 -translate-y-1/2
-               bg-white bg-opacity-80 p-2 rounded-full
-               text-xl font-bold
-               opacity-0 sm:group-hover:opacity-100
-               transition"
-      >
-        ‹
-      </button>
+  v-if="images.length > 1"
+  @click="prevImage"
+  class="absolute left-2 top-1/2 -translate-y-1/2
+         bg-white bg-opacity-80 p-2 rounded-full
+         text-xl font-bold
+         opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+         transition"
+>
+  ‹
+</button>
 
-      <button
-        v-if="images.length > 1"
-        @click="nextImage"
-        class="absolute right-2 top-1/2 -translate-y-1/2
-               bg-white bg-opacity-80 p-2 rounded-full
-               text-xl font-bold
-               opacity-0 sm:group-hover:opacity-100
-               transition"
-      >
-        ›
-      </button>
+
+<button
+  v-if="images.length > 1"
+  @click="nextImage"
+  class="absolute right-2 top-1/2 -translate-y-1/2
+         bg-white bg-opacity-80 p-2 rounded-full
+         text-xl font-bold
+         opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+         transition"
+>
+  ›
+</button>
+
 
       <div
         v-if="images.length > 1"
@@ -64,13 +68,23 @@
         6 days on Houzeo
       </div>
       <button
-        class="absolute top-2 right-2 bg-white bg-opacity-80
-               p-2 rounded-full hover:bg-red-100 transition hover:animate-pulse"
-      >
-        ❤️
-      </button>
+  @click.stop="toggleLike"
+  class="absolute top-2 right-2 bg-white bg-opacity-80
+         p-2 rounded-full transition cursor-pointer"
+>
+  <span
+    class="text-xl transition-all duration-300"
+    :class="[
+      isLiked ? 'text-red-500 animate-pulse scale-110' : 'text-gray-400'
+    ]"
+  >
+    {{ isLiked ? '❤️' : '🤍' }}
+  </span>
+</button>
+
+
       <div class="absolute bottom-0 left-0 right-0 h-20
-                  bg-gradient-to-t from-black to-transparent">
+                  bg-gradient-to-t  to-transparent">
 
       </div>
     </div>
@@ -122,7 +136,11 @@ imageFour,
 ]
 
 const currentImage = ref(0)
+const isLiked = ref(false)
 
+const toggleLike = () => {
+  isLiked.value = !isLiked.value
+}
 const nextImage = () => {
   currentImage.value =
     currentImage.value === images.length - 1

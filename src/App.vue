@@ -1,8 +1,15 @@
 <template>
-  <div class="">
-  <Header />
-    <FilterBar />
-    <MainSection />
+  <div class="flex flex-col h-full">
+    
+      <Header />
+    
+      <FilterBar />
+    
+  <!--  -->
+    
+      <MainSection />
+    
+    
   </div>
 </template>
 
