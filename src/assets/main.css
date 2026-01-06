@@ -1,0 +1,9 @@
+@import './base.css';
+@import "tailwindcss";
+ @tailwind utilities;
+
+
+  body {
+    overflow: hidden;
+  }
+
